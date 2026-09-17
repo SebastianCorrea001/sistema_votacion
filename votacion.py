@@ -34,6 +34,19 @@ def ver_resultados():
     print(f"  Total de votos: {total}")
 
 
+def mostrar_ganador():
+    if not votos:
+        print("🏆 Todavía no hay votos para determinar un ganador.")
+        return
+    max_votos = max(votos.values())
+    ganadores = [opcion for opcion, cantidad in votos.items() if cantidad == max_votos]
+    if len(ganadores) == 1:
+        print(f"🏆 Va ganando: {ganadores[0]} con {max_votos} votos.")
+    else:
+        empate = ", ".join(ganadores)
+        print(f"🏆 Hay un empate entre: {empate} (con {max_votos} votos cada uno).")
+
+
 def reiniciar_votacion():
     registro = {
         "fecha": datetime.now().isoformat(timespec="seconds"),
@@ -54,7 +67,15 @@ def reiniciar_votacion():
 
 
 def main():
-    print("Sistema de votación - módulo base")
+    registrar_voto("cedula1", "Candidato A")
+    registrar_voto("cedula2", "Candidato B")
+    registrar_voto("cedula3", "Candidato A")
+    registrar_voto("cedula1", "Candidato B")  # debe salir rechazado
+
+    ver_resultados()
+    mostrar_ganador()
+    reiniciar_votacion()
+    ver_resultados()  # debería salir vacío, confirma que se reinició
 
 
 if __name__ == "__main__":
