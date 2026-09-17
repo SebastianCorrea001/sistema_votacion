@@ -58,6 +58,13 @@ Reinicia la votación, sin perder el registro histórico.
 - Si el archivo ya existe, agrega el nuevo registro a la lista en lugar de sobrescribirlo.
 - Limpia los diccionarios `votos` y `votantes` para dejar el sistema listo para una nueva votación.
 
+### 4️⃣ `mostrar_ganador()` — Mejora del equipo
+Indica cuál opción va ganando la votación en el momento.
+
+- Busca la opción (u opciones) con más votos usando `max(votos.values())`.
+- Si solo hay una opción con el máximo, la muestra como ganadora.
+- Si hay dos o más opciones empatadas en el máximo, indica que hay un empate entre ellas.
+
 ---
 
 ## 🌳 Flujo de trabajo con Git
@@ -100,15 +107,28 @@ sistema-votacion/
 
 ---
 
-## 🚀 Próximos pasos
+## ✅ Integración final (Parte 2 - Merge y Cierre)
 
-> Esta actividad continúa en la próxima sesión.
+Las tres ramas fueron fusionadas exitosamente en `main`:
 
-Pendiente para la siguiente etapa:
-- Fusionar (`merge`) las tres ramas en `main`.
-- Integrar las tres funciones en un solo `votacion.py` funcional.
-- Resolver posibles conflictos de fusión.
-- Crear una nueva versión (tag) del sistema ya integrado.
+```bash
+git checkout main
+git pull origin main
+git merge origin/feature/registrar-voto
+git merge origin/feature/ver-resultados      # conflicto resuelto en votacion.py
+git merge origin/feature/reiniciar-votacion  # conflicto resuelto en votacion.py
+```
+
+Los conflictos se resolvieron uniendo manualmente las funciones de cada rama en un único `votacion.py`, conservando una sola copia de las variables globales `votos` y `votantes`.
+
+### 🆕 Mejora agregada por el equipo
+Se agregó la función `mostrar_ganador()`, que indica cuál opción va ganando la votación en tiempo real, o si hay empate entre las más votadas.
+
+### 🏷️ Versión final
+```bash
+git tag -a v1.0 -m "Sistema de votación integrado: registrar, ver resultados, reiniciar y mostrar ganador"
+git push origin --tags
+```
 
 ---
 
@@ -129,3 +149,4 @@ python3 votacion.py
 | `v0.1-registro` | Función `registrar_voto` lista y probada |
 | `v0.1-resultados` | Función `ver_resultados` lista con porcentajes |
 | `v0.1-reinicio` | Función `reiniciar_votacion` lista con historial persistente |
+| `v1.0` | Versión final integrada: las 3 funciones + mostrar_ganador |
